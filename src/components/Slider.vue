@@ -102,7 +102,7 @@ export default {
   .tier-info {
     z-index: 10;
     position: absolute;
-    top: 3.5em;
+    top: calc(5vw - 1.5em);
     left: 0;
     width: 100%;
 
