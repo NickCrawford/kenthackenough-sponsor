@@ -1,0 +1,372 @@
+/**
+ * index.scss
+ * - Add any styles you want here!
+ */
+
+$background: #EFEFEF;
+$main-bg: #fafafa;
+
+$color-primary: #224889;
+$color-ledge: #79AAFF;
+
+$easing: cubic-bezier(.1, 0, .3, 1);
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+}
+
+#app {
+  width: 100%;
+  height: 100%;
+}
+
+
+body {
+  background: $main-bg;
+  font-family: 'Merriweather Sans', serif;
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+input {
+  font-family: 'Oswald', serif;
+  font-size: 1.5em;
+
+  outline: none;
+  border: none;
+  box-shadow: none;
+
+  padding: 0.5em;
+
+  width: auto;
+  min-width: 0;
+
+  color: #224889;
+}
+
+main {
+  width: 90%;
+  max-width: 900px;
+  margin: 0 auto;
+  // box-shadow: 0 2px 3px rgba(0,0,0,0.2);
+}
+
+p {
+  margin-top: 0;
+}
+
+p.big {
+  font-size: 21px;
+  line-height: 1.75;
+}
+
+button {
+  background-color: #6EC20E;
+  padding: 0.5em 1em;
+
+  font-size: 18px;
+  color: white;
+
+  cursor: pointer;
+  box-shadow: 0 2px 3px rgba(0,0,0,0.1);
+
+  &.big {
+    width: 100%;
+    margin: 1em auto;
+    font-size: 30px;
+  }
+
+  transition: opacity 0.3s ease;
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+}
+  
+
+header {
+  position: sticky;
+  top: 0;
+  
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  
+  width: 90%;
+  max-width: 900px;
+  margin: 0 auto 4em;
+  
+  z-index: 100;
+  
+  h1 {
+    transition: all 0.5s $easing;
+  }
+  
+  h2 {
+    margin-top: 0;
+    color: #888;
+    height: auto;
+    transition: all 0.5s $easing;
+  }
+  
+  button {
+    position: absolute;
+    top: 1em;
+    right: 2em;
+  }
+  
+  transition: all 0.5s $easing;
+
+  @media screen and (max-width: 768px) {
+    margin: 0 auto 1em;
+    padding: 1em 0;
+
+    h1 {
+      font-size: 2em;
+      text-wrap: nowrap;
+    }
+
+    h2 {
+      font-size: 1em;
+    }
+  }
+}
+
+header.stuck {
+  width: 100%;
+  max-width: 100%;
+  background-color: $main-bg;
+  box-shadow: 0 2px 3px rgba(0,0,0,0.2);
+  padding: 0.5em 1em;
+  
+  h1 {
+    font-size: 2em;
+    margin-top: 0;
+  }
+
+  h2 {
+    height: 0 !important;
+    margin: 0;
+  }
+  
+}
+
+h1 {
+  font-family: 'Oswald', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 900;
+  text-align: left;
+  font-size: 3em;
+  margin-bottom: 0;
+  color: $color-primary;
+}
+
+h2, h3 {
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 1.5em;
+  letter-spacing: 1px;
+  color: black;
+  font-family: Arial Rounded MT Bold, Helvetica Neue, Helvetica, sans serif;
+  margin-bottom: 0.25em;
+}
+
+h3 {
+  font-size: 1em;
+}
+
+.scroll-down-indicator {
+  position: fixed;
+  bottom: 2em;
+  left: 50%;
+  
+  transform: translateX(-50%);
+  margin: 2em auto;
+  
+  p {
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
+  
+  span {
+    display: block;
+    position: relative;
+    margin: 0 auto;
+    width: 24px;
+    height: 24px;
+    
+    border-left: 1px solid #333;
+    border-bottom: 1px solid #333;
+    
+    transform: scaleX(1.5) rotate(-45deg);
+    box-sizing: border-box;
+    animation: hover 0.5s ease-in-out 0s infinite alternate;
+  }
+}
+
+@keyframes hover {
+    from { transform: translateY(0) scaleX(1.5) rotate(-45deg); }
+    to { transform: translateY(20px) scaleX(1.5) rotate(-45deg); }
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
+
+button.fade-enter-active {
+  transition: opacity .5s;
+  transition-delay: 0.5s;
+}
+
+button.fade-leave-active {
+  transition: opacity 0.2s;
+  transition-delay: 0s;
+}
+
+button.fade-enter, button.fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
+
+
+#sponsor-modal-container {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  
+  z-index: 1000;
+  
+}
+
+.blackout {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.2);
+}
+
+.modal {
+  width: 100%;
+  max-width: 900px;
+  height: 100%;
+}
+
+
+// Styling input ranges is painful
+
+// Styling Cross-Browser Compatible Range Inputs with Sass
+// Github: https://github.com/darlanrod/input-range-sass
+// Author: Darlan Rod https://github.com/darlanrod
+// Version 1.4.1
+// MIT License
+
+$track-color: linear-gradient(to bottom, $color-ledge, $color-ledge 49.9%, darken($color-ledge, 5%) 50%, darken($color-ledge, 5%) 100%) !default;
+$thumb-color: $color-primary !default;
+
+$thumb-radius: 20px !default;
+$thumb-height: 40px !default;
+$thumb-width: 40px !default;
+
+$track-width: 330px !default;
+$track-height: 25px !default;
+$track-shadow-color: rgba(0, 0, 0, .2) !default;
+$track-border-width: 5px !default;
+$track-border-color: $color-primary !default;
+
+$track-radius: 25px !default;
+
+@mixin track {
+  cursor: pointer;
+  height: $track-height;
+  transition: all .2s ease;
+  width: $track-width;
+}
+
+@mixin thumb {
+  background: $thumb-color;
+  border-radius: $thumb-radius;
+  cursor: pointer;
+  height: $thumb-height;
+  width: $thumb-width;
+}
+
+[type='range'] {
+  -webkit-appearance: none;
+  margin: $thumb-height / 2 0;
+  width: $track-width;
+
+  &:focus {
+    outline: 0;
+
+    &::-webkit-slider-runnable-track {
+      background: $track-color;
+    }
+
+    &::-ms-fill-lower {
+      background: $track-color;
+    }
+
+    &::-ms-fill-upper {
+      background: $track-color;
+    }
+  }
+
+  &::-webkit-slider-runnable-track {
+    @include track;
+    background: $track-color;
+    border-radius: $track-radius;
+  }
+
+  &::-webkit-slider-thumb {
+    @include thumb;
+    -webkit-appearance: none;
+    margin-top: ((-$track-border-width * 2 + $track-height) / 2) - ($thumb-height / 2);
+  }
+
+  &::-moz-range-track {
+    @include track;
+    background: $track-color;
+    border: $track-border-width solid $track-border-color;
+    border-radius: $track-radius;
+  }
+
+  &::-moz-range-thumb {
+    @include thumb;
+  }
+
+  &::-ms-track {
+    @include track;
+    background: transparent;
+    border-color: transparent;
+    border-width: ($thumb-height / 2) 0;
+    color: transparent;
+  }
+
+  &::-ms-fill-lower {
+    background: $track-color;
+    border: $track-border-width solid $track-border-color;
+    border-radius: $track-radius * 2;
+  }
+
+  &::-ms-fill-upper {
+    background: $track-color;
+    border: $track-border-width solid $track-border-color;
+    border-radius: $track-radius * 2;
+  }
+
+  &::-ms-thumb {
+    @include thumb;
+    margin-top: 0;
+  }
+}
