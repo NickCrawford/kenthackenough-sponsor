@@ -37,7 +37,7 @@ export default {
     this.$root.companyName = this.companyName;
 
     if (this.name || this.companyName) {
-      window.history.replaceState({} , null, `/#/`)
+      window.history.replaceState({} , null, `/`)
     }
   }
 }
