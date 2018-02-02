@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <main id="checkout">
     <h2>You're sponsoring:</h2>
     <h1 v-if="$root.donationAmount > 0">$ {{ $root.donationAmount }}</h1>
     <h1 v-if="$root.customInfo.prize.name">Custom Prize - {{ $root.customInfo.prize.name }}</h1>
@@ -20,18 +20,6 @@
       <input id="company-url" type="url" name="company-url" v-model="$root.url" tabindex="5">
     </form>
 
-    <span v-if="$root.donationAmount > 0">
-      <p class="big">Pay with:</p>
-      <div class="flex-row">
-        <div class="paycard" tabindex="6">
-          <h3>Pay now with <h2>Paypal</h2></h3>
-        </div>
-        <div class="paycard" tabindex="7">
-          <h3>Get an invoice and pay with <h2>check</h2></h3>
-        </div>
-      </div>
-    </span>
-
     <router-link :to="{ name: 'ThankYou' }" tag="button" class="big">Finish</router-link>
   </main>
 </template>
@@ -50,6 +38,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  #checkout {
+    margin-bottom: 10em;
+  }
 
   form {
     margin: 3em auto;
@@ -67,31 +58,4 @@ export default {
     }
   }
 
- .flex-row {
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: space-between;
-    align-items: baseline;
-
-    @media screen and (max-width: 768px) {
-      flex-wrap: wrap;
-    }
-  }
-
-  .paycard {
-    background-color: #FFF;
-    padding: 1em 2em;
-    box-shadow: 0 3px 5px rgba(0,0,0,0.3);
-    border-radius: 4px;
-    width: 48%;
-    margin: 1em 0;
-
-    h3 {
-      text-align: center;
-    }
-
-    @media screen and (max-width: 768px) {
-      width: 100%;
-    }
-  }
 </style>

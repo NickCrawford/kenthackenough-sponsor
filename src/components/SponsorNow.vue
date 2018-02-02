@@ -68,7 +68,6 @@
               <money v-bind="moneySmall" id="prize-value" name="prize-value" v-model="$root.customInfo.prize.value"/>
               <label for="prize-criteria">Prize Criteria</label>
               <textarea id="prize-criteria" type="text" name="prize-criteria" v-model="$root.customInfo.prize.criteria" placeholder="Build a software solution that can help reduce the frequency and/or severity of online harassment."></textarea>
-              <br><br>
             </div>
           </transition>
         </div>
@@ -86,7 +85,6 @@
             <div class="hide" v-if="custom.other">
               <p>How would you like to sponsor Kent Hack Enough?</p>
               <textarea name="custom" v-model="customInfo"/>
-              <br><br>
               <p v-if="customInfo.length > 10">Click <b>'Next'</b> below and we'll be in touch soon with more details.</p>
             </div>
           </transition>

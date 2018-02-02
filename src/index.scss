@@ -109,6 +109,7 @@ header {
   z-index: 100;
   
   h1 {
+    cursor: pointer;
     transition: all 0.5s $easing;
   }
   

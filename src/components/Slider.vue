@@ -96,6 +96,7 @@ export default {
       text-align: center;
 
       label {
+        margin-bottom: -1em;
         display: block;
       }
     }
@@ -233,7 +234,7 @@ $track-radius: 25px !default;
   -webkit-appearance: none;
   margin: $thumb-height / 2 0;
   width: $track-width;
-
+  background: transparent;
   &:focus {
     outline: 0;
 
@@ -259,7 +260,7 @@ $track-radius: 25px !default;
   &::-webkit-slider-thumb {
     @include thumb;
     -webkit-appearance: none;
-    margin-top: ((-$track-border-width * 2 + $track-height) / 2) - ($thumb-height / 2);
+    margin-top: ((-$track-border-width * 2 + $track-height + 9) / 2) - ($thumb-height / 2);
   }
 
   &::-moz-range-track {
