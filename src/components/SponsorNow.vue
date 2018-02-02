@@ -245,6 +245,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  #sponsor-now {
+    margin-bottom: 10em;
+  }
+
   .form-wrapper {
     display: flex;
     flex-wrap: wrap;
