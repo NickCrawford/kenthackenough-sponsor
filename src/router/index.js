@@ -14,7 +14,7 @@ export default new Router({
       path: '/',
       name: 'Home',
       component: HelloWorld,
-      props: (route) => ({ name: route.query.name, companyName: route.query.companyName })
+      props: (route) => ({ name: route.query.name, company: route.query.company, email: route.query.email })
     },
     {
       path: '/lets-do-this',

@@ -1,8 +1,9 @@
 <template>
 <div>
   <main>
-    <greeting :personName="name" :companyName="companyName"></greeting>
+    <greeting :personName="name" :companyName="company"></greeting>
   </main>
+  <br><br><br><br>
   <slider></slider>
   <main>
     <br><br>
@@ -25,7 +26,7 @@ import SponsorModal from '@/components/SponsorModal';
 export default {
   name: 'HelloWorld',
   components: { Greeting, Slider, Custom, SponsorModal},
-  props: ['name', 'companyName'],
+  props: ['name', 'company', 'email'],
   data () {
     return {
       msg: 'Welcome to Your Vue.js App'
@@ -34,7 +35,8 @@ export default {
   mounted() {
     console.log(this.$route.params);
     this.$root.name = this.name;
-    this.$root.companyName = this.companyName;
+    this.$root.companyName = this.company;
+    this.$root.email = this.email;
 
     if (this.name || this.companyName) {
       window.history.replaceState({} , null, `/`)
