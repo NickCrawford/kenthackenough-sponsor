@@ -9,18 +9,18 @@
 
     <form>
       <label for="name">Your Name</label>
-      <input id="name" type="text" name="name" v-model="$root.name" tabindex="1" v-focus>
+      <input id="name" type="text" name="name" v-model="$root.name" tabindex="1">
       <label for="company-email">Your Work Email</label>
       <input id="company-email" type="email" name="company-email" v-model="$root.email" tabindex="2">
       <label for="company-phone">Your Work Phone Number</label>
       <input id="company-phone" type="phone" name="company-phone" v-model="$root.phone" tabindex="3">
       <label for="company-name">Your Company's Name</label>
       <input id="company-name" type="organization" name="company-name" v-model="$root.companyName" tabindex="4">
-      <label for="company-url">Your Company Website</label>
+      <label for="company-url">Your Company Website Url</label>
       <input id="company-url" type="url" name="company-url" v-model="$root.url" tabindex="5">
     </form>
 
-    <router-link :to="{ name: 'ThankYou' }" tag="button" class="big">Finish</router-link>
+    <router-link :to="{ name: 'ThankYou' }" tag="button" class="big" :disabled="!canFinish">Finish</router-link>
   </main>
 </template>
 
@@ -32,6 +32,18 @@ export default {
   data () {
     return {
 
+    }
+  },
+
+  computed: {
+    canFinish() {
+      return this.$root.name && this.$root.email && this.$root.phone && this.$root.companyName;
+    }
+  },
+
+  mounted() {
+    if ( this.$root.donationAmount == 0 && !this.$root.customInfo.prize.name && !this.$root.customInfo.meal && !this.$root.customInfo.other ) {
+      this.$router.push({ name: 'SponsorNow' });
     }
   }
 }
