@@ -4,7 +4,7 @@
     <h1 v-if="$root.donationAmount > 0">$ {{ $root.donationAmount }}</h1>
     <h1 v-if="$root.customInfo.prize.name">Custom Prize - {{ $root.customInfo.prize.name }}</h1>
     <h1 v-if="$root.customInfo.meal">{{ $root.customInfo.meal }}</h1>
-    <h1 v-else>Custom Sponsorship</h1>
+    <h1 v-if="$root.customInfo.other">Custom Sponsorship</h1>
 
 
     <form>

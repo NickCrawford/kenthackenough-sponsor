@@ -41,7 +41,7 @@ export default {
     display: flex;
     flex-wrap: nowrap;
     justify-content: space-between;
-    align-items: baseline;
+    align-items: stretch;
 
     @media screen and (max-width: 768px) {
       flex-wrap: wrap;

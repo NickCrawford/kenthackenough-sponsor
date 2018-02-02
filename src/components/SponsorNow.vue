@@ -202,6 +202,16 @@ export default {
 
     customInfo(info) {
       this.$root.customInfo.other = info;
+    },
+
+    custom: {
+      handler (custom) {
+        console.log('changed')
+        if (!custom.meal) {
+          this.mealSelected = '';
+        }
+      },
+      deep: true,
     }
   },
 
