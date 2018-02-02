@@ -5,7 +5,7 @@
       <h2 v-if="!hasScrolled">Sponsorship Information</h2>
     </transition>
     <transition name="fade">
-      <router-link :to="{ name: 'SponsorNow' }" tag="button" v-if="hasScrolled && !($route.name == 'SponsorNow' || $route.name == 'Checkout')">Sponsor Now</router-link>
+      <router-link :to="{ name: 'SponsorNow' }" tag="button" v-if="hasScrolled && !($route.name == 'SponsorNow' || $route.name == 'Checkout'|| $route.name == 'ThankYou')">Sponsor Now</router-link>
     </transition>
   </header>
 </template>
