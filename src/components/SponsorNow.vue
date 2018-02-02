@@ -206,9 +206,16 @@ export default {
 
     custom: {
       handler (custom) {
-        console.log('changed')
         if (!custom.meal) {
           this.mealSelected = '';
+        }
+
+        if (!custom.prize) {
+          this.$root.customInfo.prize.name = '';
+        }
+
+        if (!custom.other) {
+          this.customInfo = '';
         }
       },
       deep: true,
