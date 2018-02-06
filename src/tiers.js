@@ -7,7 +7,7 @@ export const tiers = [
   {
     amount: 500,
     perks: ['Logo on Website', 'Reserved Table', 'Send Swag'],
-    activeElements: ['#Website', '#Table2', '#Water-Bottle'],
+    activeElements: ['#Website', '#Table', '#Water-Bottle'],
   },
   {
     amount: 750,

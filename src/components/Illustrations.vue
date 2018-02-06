@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import lunar from 'lunar.js/dist/lunar.min.js';
+import {TweenMax, TimelineLite} from "gsap";
 
 export default {
 
@@ -13,7 +13,58 @@ export default {
 
   data () {
     return {
-      
+      allActiveElements: [],
+      allInactiveElements: [],
+      animations: {
+        ['#Mentor']: {
+          inactiveStyle: { transform: 'translateY(-115%)' },
+          activeStyle: { y: '0%' },
+        },
+        ['#Table']: {
+          inactiveStyle: { transform: 'translateY(-115%)' },
+          activeStyle: { y: '0%' },
+        },
+        ['#Water-Bottle']: {
+          inactiveStyle: { y: '-115%' },
+          activeStyle: { y: '0%' },
+        },
+        ['#Website']: {
+          inactiveStyle: { y: '-115%' },
+          activeStyle: { y: '0%' },
+        },
+        ['#TShirt']: {
+          inactiveStyle: { y: '-115%' },
+          activeStyle: { y: '0%' },
+        },
+        ['#Bag']: {
+          inactiveStyle: { y: '-115%' },
+          activeStyle: { y: '0%' },
+        },
+        ['#Recruiter']: {
+          inactiveStyle: { y: '-115%' },
+          activeStyle: { y: '0%' },
+        },
+        ['#Resume-Stack']: {
+          inactiveStyle: { y: '-115%' },
+          activeStyle: { y: '0%' },
+        },
+        ['#Projecter-Screen']: {
+          inactiveStyle: { y: '-115%' },
+          activeStyle: { y: '0%' },
+        },
+        ['#Spotlight']: {
+          inactiveStyle: { y: '-115%' },
+          activeStyle: { y: '0%' },
+        },
+        ['#Male-Hacker']: {
+          inactiveStyle: { y: '-115%' },
+          activeStyle: { y: '0%' },
+        },
+        ['#Female-Hacker']: {
+          inactiveStyle: { y: '-115%' },
+          activeStyle: { y: '0%' },
+        },
+      }
     }
   },
 
@@ -31,33 +82,59 @@ export default {
   },
 
   methods: {
-    animate() {
-      var allActiveElements = [];
-      var inactiveElements = [];
-      var allPerks = [];
 
-      // Find out which perks and elements are active at the current slider amount
+    animate() {
+      // Copy the current version of the Active Elements Array
+      let previousAllActiveElements = this.allActiveElements.slice();
+      let previousAllInactiveElements = this.allInactiveElements.slice();
+
+      this.allActiveElements = [];
+      this.allInactiveElements = [];
+
+      // Find out which elements are active at the current slider amount
       this.tiers.forEach((tier) => {
         if (this.amount >= tier.amount) {
-          allPerks.push(...tier.perks);
-          allActiveElements.push(...tier.activeElements);
+  
+          this.allActiveElements.push(...tier.activeElements);
         } else {
-          inactiveElements.push(...tier.activeElements);
+          this.allInactiveElements.push(...tier.activeElements);
         }
       });
 
-      // console.log('animating', this.amount, allActiveElements, inactiveElements);
+      /* We only want to animate the elements that were newly added to the active array.
+       * To do this, we take our copy of the old version of the list and compare it to our new version
+       * We want to only keep the elements that were just added and animate those.
+       * If we didn't do this, ALL of the active elements would arenimate each time the slider amount changes
+      */
 
-      // Add the 'active' class to each active element
-      allActiveElements.forEach((elementId) => {
+      const onlyAnimateActive = this.allActiveElements.filter(val => !previousAllActiveElements.includes(val));
+      
+      onlyAnimateActive.forEach((elementId) => {
         var svg = document.querySelector(elementId);
-        lunar.addClass(svg, 'active');
+        console.log("active", svg, this.animations[elementId])
+
+        TweenMax.set(svg, this.animations[elementId].inactiveStyle);
+
+        var tl = new TimelineMax({});
+
+        tl.to(svg, 1, this.animations[elementId].activeStyle);
       })
 
-      // Remove the 'active' class from each active element
-      inactiveElements.forEach((elementId) => {
+      /*
+       * Now we do the same for the inactive elements
+       */
+
+      const onlyAnimateInactive = this.allInactiveElements.filter(val => !previousAllInactiveElements.includes(val));
+      console.log('onlyAnimateInactive', onlyAnimateInactive);
+      onlyAnimateInactive.forEach((elementId) => {
         var svg = document.querySelector(elementId);
-        lunar.removeClass(svg, 'active');
+        console.log("inactive", svg, this.animations[elementId])
+
+        TweenMax.set(svg, this.animations[elementId].activeStyle);
+
+        var tl = new TimelineMax({});
+
+        tl.to(svg, 1, this.animations[elementId].inactiveStyle);
       })
     }
   }
@@ -67,141 +144,141 @@ export default {
 <style lang="scss">
 
 
-#Mentor, #Table2, #Recruiter {
-  transform: translateY(-115%);
-  transition: transform 0.5s cubic-bezier(.6,.02,.9,.81);
+// #Mentor, #Table2, #Recruiter {
+//   transform: translateY(-115%);
+//   transition: transform 0.5s cubic-bezier(.6,.02,.9,.81);
 
-  &.active {
-    transform: translateY(0);
-  }
-}
+//   &.active {
+//     transform: translateY(0);
+//   }
+// }
 
-#Water-Bottle {
-  transform: translateY(-110%);
-  transition: transform 0.5s cubic-bezier(.6,.02,.9,.81);
-  transition-delay: 0s;
+// #Water-Bottle {
+//   transform: translateY(-110%);
+//   transition: transform 0.5s cubic-bezier(.6,.02,.9,.81);
+//   transition-delay: 0s;
 
-  &.active {
-    transform: translateY(0);
-    transition-delay: 0.3s;
-  }
-}
+//   &.active {
+//     transform: translateY(0);
+//     transition-delay: 0.3s;
+//   }
+// }
 
-#Website, #Female-Hacker {
-  transform: translateX(50%);
-  transition: transform 1s cubic-bezier(.55,-0.57,.82,.19);
+// #Website, #Female-Hacker {
+//   transform: translateX(50%);
+//   transition: transform 1s cubic-bezier(.55,-0.57,.82,.19);
 
-  &.active {
-    transform: translateX(0);
-    transition: transform 1s cubic-bezier(.36,1.67,.59,1.01);
-  }
-}
+//   &.active {
+//     transform: translateX(0);
+//     transition: transform 1s cubic-bezier(.36,1.67,.59,1.01);
+//   }
+// }
 
-#TShirt, #Male-Hacker {
-  transform: translateX(-50%);
-  transition: transform 1s cubic-bezier(.55,-0.57,.82,.19);
+// #TShirt, #Male-Hacker {
+//   transform: translateX(-50%);
+//   transition: transform 1s cubic-bezier(.55,-0.57,.82,.19);
 
-  &.active {
-    transform: translateX(0);
-    transition: transform 1s cubic-bezier(.36,1.67,.59,1.01);
-  }
-}
+//   &.active {
+//     transform: translateX(0);
+//     transition: transform 1s cubic-bezier(.36,1.67,.59,1.01);
+//   }
+// }
 
-#Bag {
-  transform: translateY(110%);
-  transition: transform 1s ease-out;
+// #Bag {
+//   transform: translateY(110%);
+//   transition: transform 1s ease-out;
 
-  &.active {
-    transform: translateY(0);
-    transition: transform 1s ease-out;
-  }
-}
+//   &.active {
+//     transform: translateY(0);
+//     transition: transform 1s ease-out;
+//   }
+// }
 
-#Resume-Stack {
+// #Resume-Stack {
 
-  path {
-    transform: translateY(-90%);
-    transition: transform 0.5s cubic-bezier(.6,.02,.9,.81);
-  }
+//   path {
+//     transform: translateY(-90%);
+//     transition: transform 0.5s cubic-bezier(.6,.02,.9,.81);
+//   }
 
-  path:nth-child(11), path:nth-child(12) {
-    opacity: 0;
-    transition: opacity 0.3s ease 0s;
-  }
+//   path:nth-child(11), path:nth-child(12) {
+//     opacity: 0;
+//     transition: opacity 0.3s ease 0s;
+//   }
 
-  &.active {
-    path {
-      transform: translateY(0);
-      transition: transform 0.5s cubic-bezier(.6,.02,.9,.81);
+//   &.active {
+//     path {
+//       transform: translateY(0);
+//       transition: transform 0.5s cubic-bezier(.6,.02,.9,.81);
 
-      @for $i from 10 to 1 {
-        &:nth-child(#{$i}) { transition-delay: #{$i * 100}ms }
-      }
-    }
+//       @for $i from 10 to 1 {
+//         &:nth-child(#{$i}) { transition-delay: #{$i * 100}ms }
+//       }
+//     }
 
-    path:nth-child(11), path:nth-child(12) {
-      opacity: 1;
-      transition: opacity 0.3s ease 2s;
-    }
-  }
-}
+//     path:nth-child(11), path:nth-child(12) {
+//       opacity: 1;
+//       transition: opacity 0.3s ease 2s;
+//     }
+//   }
+// }
 
-#Projecter-Screen {
-  transform: translateY(-100%);
-  transition: transform 1s cubic-bezier(.46,.19,.73,.43);
+// #Projecter-Screen {
+//   transform: translateY(-100%);
+//   transition: transform 1s cubic-bezier(.46,.19,.73,.43);
 
-  &.active {
-    transform: translateY(0);
-    transition: transform 1.5s cubic-bezier(.4,.71,.43,.91);
-  }
-}
+//   &.active {
+//     transform: translateY(0);
+//     transition: transform 1.5s cubic-bezier(.4,.71,.43,.91);
+//   }
+// }
 
-#Spotlight {
-  opacity: 0;
+// #Spotlight {
+//   opacity: 0;
 
-  &.active {
-      animation-name: flicker;
-      animation-duration: 1s;
-      animation-timing-function: linear;
-      animation-delay: 0s;
-      animation-direction: backwards;
-      opacity: 1;
-  }
-}
+//   &.active {
+//       animation-name: flicker;
+//       animation-duration: 1s;
+//       animation-timing-function: linear;
+//       animation-delay: 0s;
+//       animation-direction: backwards;
+//       opacity: 1;
+//   }
+// }
 
-@keyframes flicker {
-  0% {
-    opacity: 0;
-  }
-  9% {
-    opacity: 0;
-  }
-  10% {
-    opacity: 1;
-  }
-  19% {
-    opacity: 1;
-  }
-  20% {
-    opacity: 0;
-  }
-  39% {
-    opacity: 0;
-  }
-  40% {
-    opacity: 1;
-  }
-  49% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0;
-  }
-  99% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
+// @keyframes flicker {
+//   0% {
+//     opacity: 0;
+//   }
+//   9% {
+//     opacity: 0;
+//   }
+//   10% {
+//     opacity: 1;
+//   }
+//   19% {
+//     opacity: 1;
+//   }
+//   20% {
+//     opacity: 0;
+//   }
+//   39% {
+//     opacity: 0;
+//   }
+//   40% {
+//     opacity: 1;
+//   }
+//   49% {
+//     opacity: 1;
+//   }
+//   50% {
+//     opacity: 0;
+//   }
+//   99% {
+//     opacity: 0;
+//   }
+//   100% {
+//     opacity: 1;
+//   }
+// }
 </style>

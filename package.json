@@ -10,7 +10,7 @@
     "build": "node build/build.js"
   },
   "dependencies": {
-    "lunar.js": "git+https://github.com/toddmotto/lunar.git",
+    "gsap": "^1.20.3",
     "v-money": "^0.8.1",
     "vue": "^2.5.2",
     "vue-focus": "^2.1.0",
