@@ -17,11 +17,11 @@ export default {
       allInactiveElements: [],
       animations: {
         ['#Mentor']: {
-          inactiveStyle: { transform: 'translateY(-115%)' },
+          inactiveStyle: { y: '-200%' },
           activeStyle: { y: '0%' },
         },
         ['#Table']: {
-          inactiveStyle: { transform: 'translateY(-115%)' },
+          inactiveStyle: { y: '-200%' },
           activeStyle: { y: '0%' },
         },
         ['#Water-Bottle']: {
