@@ -63,8 +63,8 @@ export default {
         ['#Resume-Stack']: {
           activeDuration: 0.5,
           inactiveDuration: 0.5,
-          inactiveStyle: { y: '-850%', ease: Power1.easeIn },
-          activeStyle: { y: '0%', ease: Power1.easeIn },
+          inactiveStyle: { y: '-850px', ease: Power1.easeIn },
+          activeStyle: { y: '0px', ease: Power1.easeIn },
         },
         ['#Projecter-Screen']: {
           activeDuration: 1,
@@ -134,13 +134,20 @@ export default {
       console.log('Active', onlyAnimateActive);
       onlyAnimateActive.forEach((elementId) => {
         var svg = document.querySelector(elementId);
-        // console.log("active", svg, this.animations[elementId])
 
-        TweenMax.set(svg, this.animations[elementId].inactiveStyle);
+        // Special case for resume stack for more fun staggered animation :D
+        if (elementId == '#Resume-Stack') {
 
-        var tl = new TimelineMax({});
+          TweenMax.staggerTo("#Resume-Stack path", this.animations[elementId].activeDuration, this.animations[elementId].activeStyle, 0.1);
 
-        tl.to(svg, this.animations[elementId].activeDuration, this.animations[elementId].activeStyle );
+        } else {
+
+          TweenMax.set(svg, this.animations[elementId].inactiveStyle);
+
+          var tl = new TimelineMax({});
+
+          tl.to(svg, this.animations[elementId].activeDuration, this.animations[elementId].activeStyle );
+        }
       })
 
       /*
@@ -154,11 +161,19 @@ export default {
         var svg = document.querySelector(elementId);
         // console.log("inactive", svg, this.animations[elementId])
 
-        TweenMax.set(svg, this.animations[elementId].activeStyle);
+        // Special case for resume stack for more fun animation :D
+        if (elementId == '#Resume-Stack') {
 
-        var tl = new TimelineMax({});
+          TweenMax.to("#Resume-Stack path", this.animations[elementId].inactiveDuration, this.animations[elementId].inactiveStyle);
 
-        tl.to(svg, this.animations[elementId].inactiveDuration, this.animations[elementId].inactiveStyle);
+        } else {
+
+          TweenMax.set(svg, this.animations[elementId].activeStyle);
+
+          var tl = new TimelineMax({});
+
+          tl.to(svg, this.animations[elementId].inactiveDuration, this.animations[elementId].inactiveStyle);
+        }
       })
     }
   }
