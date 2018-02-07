@@ -21,7 +21,9 @@
 
     <transition name="fade">
       <div class="input-wrapper" v-show="!showScrollIndicator">
-        <label class="house-label" for="range" id="label"><h2>Donate ${{ amount }}</h2></label>
+        <label class="house-label" for="range" id="label"><div class="tooltip" v-if="!hasDragged">
+          <p>Psst! Try dragging this slider</p>
+        </div><h2>Donate ${{ amount }}</h2></label>
         <input v-model="sliderVal" type="range" min="0" max="7" step="1" id="range">
       </div>
     </transition>
@@ -31,17 +33,35 @@
 <script>
 import Illustrations from '@/components/Illustrations';
 import { tiers } from '@/tiers';
+import {TweenMax, Power1, TimelineLite} from "gsap";
+import ScrollToPlugin from "gsap/ScrollToPlugin";
+
 export default {
 
   name: 'Slider',
   components: { Illustrations },
   data() {
     return {
+      hasDragged: false,
       showScrollIndicator: true,
       sliderVal: 0,
       tiers,
     };
   },
+
+  watch: {
+    sliderVal() {
+      if (!this.hasDragged) {
+        // var win = window;
+        // console.log(win);
+        TweenMax.to(window, 1, {scrollTo: { y: '#slider-container', offsetY: 50 } });
+        // TweenMax.to(window, 2, {scrollTo:"#slider-container"});
+      }
+
+      this.hasDragged = true;
+    }
+  },
+
   computed: {
     amount() {
       var amount = this.tiers[this.sliderVal].amount;
@@ -62,6 +82,12 @@ export default {
       return allPerks;
     },
   },
+
+  mounted () {
+    var tooltip = document.querySelector('.tooltip');
+    TweenMax.to(tooltip, 1, { x: -20, yoyo: true, repeat: -1, ease: Power1.easeInOut });
+  },
+
   methods: {
     handleScroll () {
       this.showScrollIndicator = window.scrollY < 100;
@@ -81,18 +107,29 @@ export default {
   $color-ledge: #79AAFF;
 
   #slider-container {
+    display: grid;
+    grid-template-rows: 2em 1fr 6em;
+    grid-template-columns: 100%;
+    grid-template-areas: 
+    "tier-info"
+    "illustration"
+    "slider";
+    justify-items: center;
+    align-items: end;
+    overflow: hidden;
+
     position: relative;
     width: 100%;
-    height: 90vh;
-    min-height: 600px;
+    height: auto;
+    min-height: 80vh;
     text-align: center;
     color: #333;
     overflow-x: hidden;
 
     .input-wrapper {
-      width: 100%;
+      grid-area: slider;
       position: absolute;
-      bottom: 0em;
+      // bottom: 0em;
       text-align: center;
 
       label {
@@ -103,9 +140,11 @@ export default {
   }
 
   .tier-info {
+    grid-area: tier-info;
     z-index: 10;
     position: absolute;
-    top: calc(5vw - 1.5em);
+    top: 0;
+    //top: calc(5vw - 1.5em);
     left: 0;
     width: 100%;
 
@@ -132,6 +171,12 @@ export default {
     }
   }
 
+  #vector-wrapper {
+    grid-area: illustration;
+    align-self: end;
+    justify-self: stretch;
+  }
+
   #illustration-container {
 
     width: auto;
@@ -146,22 +191,9 @@ export default {
 
   @media screen and (max-width: 1024px) {
     #slider-container {
-      height: 90vh;
+      min-height: 80vh;
       margin-top: 2em;
-      display: grid;
-      grid-template-rows: 4em 1fr 6em;
-      grid-template-columns: 100%;
-      grid-template-areas: 
-        "tier-info"
-        "illustration"
-        "slider";
-      justify-items: center;
-      align-items: center;
-      overflow: visible;
-    }
-
-    .input-wrapper {
-      grid-area: slider;
+      
     }
 
     .tier-info {
@@ -169,7 +201,6 @@ export default {
       position: relative;
       top: 0;
       padding: 0;
-      grid-area: tier-info;
 
       h3 {
         margin: 0.5em;
@@ -177,11 +208,10 @@ export default {
     }
 
     #vector-wrapper {
-      grid-area: illustration;
-      width: 120%;
-      height: auto;
+      width: 140%;
+      max-height: 100%;
+      justify-self: center;
     }
-
 
     #illustration-container {
       width: 100%;
@@ -189,6 +219,38 @@ export default {
       overflow: hidden;
     }
 
+  }
+
+  .tooltip {
+    display: block;
+    position: absolute;
+    top: 28%;
+    right: 105%;
+    width: 250px;
+    padding: 0.5em 1em;
+    background-color: #39475E;
+    border-radius: 8px;
+    border: 2px solid #192E50;
+    color: white;
+    z-index: 10;
+
+    &:before {
+      content: '';
+      position: absolute;
+      right: calc(-0.5em - 2px);
+      top: calc(50% - 0.5em - 2px);
+      background-color: #39475E;
+      border-top: 2px solid #192E50;
+      border-right: 2px solid #192E50;
+      width: 1em;
+      height: 1em;
+      transform: rotate( 45deg );
+      z-index: 9;
+    }
+
+    @media screen and (max-width: 1024px) {
+      display: none;
+    }
   }
 
 

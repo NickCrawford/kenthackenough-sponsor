@@ -6,7 +6,7 @@
       </div>
       <div>
         <h3>Sponsor a Prize</h3>
-        <p>Does your company have a product that you want people to know about? Why not give it away as a prize?</p>
+        <p>Does your company have a product that you want people to know about? You can give it away as a prize!</p>
       </div>
       <div>
         <h3>Something else?</h3>
