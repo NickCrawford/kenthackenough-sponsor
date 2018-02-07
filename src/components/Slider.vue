@@ -16,11 +16,11 @@
     </transition>
 
     <transition name="fade">
-      <illustrations :amount="amount" :tiers="tiers" v-if="!showScrollIndicator"></illustrations>
+      <illustrations :amount="amount" :tiers="tiers" v-show="!showScrollIndicator"></illustrations>
     </transition>
 
     <transition name="fade">
-      <div class="input-wrapper" v-if="!showScrollIndicator">
+      <div class="input-wrapper" v-show="!showScrollIndicator">
         <label class="house-label" for="range" id="label"><h2>Donate ${{ amount }}</h2></label>
         <input v-model="sliderVal" type="range" min="0" max="7" step="1" id="range">
       </div>

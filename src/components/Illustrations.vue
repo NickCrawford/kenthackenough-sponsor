@@ -3,66 +3,92 @@
 </template>
 
 <script>
-import {TweenMax, TimelineLite} from "gsap";
+import {TweenMax, Power0, Power1, Back, TimelineLite} from "gsap";
+import Vector from '@/components/Vector';
 
 export default {
 
   name: 'Illustrations',
+  components: { Vector },
 
   props: ['amount', 'tiers'],
 
   data () {
     return {
-      allActiveElements: [],
+      allActiveElements: ['#Mentor'],
       allInactiveElements: [],
       animations: {
         ['#Mentor']: {
-          inactiveStyle: { y: '-200%' },
-          activeStyle: { y: '0%' },
+          activeDuration: 0.5,
+          inactiveDuration: 0.5,
+          inactiveStyle: { y: '-200%', ease: Power1.easeIn },
+          activeStyle: { y: '0%', ease: Power1.easeIn },
         },
         ['#Table']: {
-          inactiveStyle: { y: '-200%' },
-          activeStyle: { y: '0%' },
+          activeDuration: 0.4,
+          inactiveDuration: 0.4,
+          inactiveStyle: { y: '-400%', ease: Power0.easeNone },
+          activeStyle: { y: '0%', ease: Power0.easeNone },
         },
         ['#Water-Bottle']: {
-          inactiveStyle: { y: '-115%' },
-          activeStyle: { y: '0%' },
+          activeDuration: 0.4,
+          inactiveDuration: 0.4,
+          inactiveStyle: { y: '-580%', ease: Power1.easeIn },
+          activeStyle: { y: '0%', ease: Power1.easeIn },
         },
         ['#Website']: {
-          inactiveStyle: { y: '-115%' },
-          activeStyle: { y: '0%' },
+          activeDuration: 0.75,
+          inactiveDuration: 0.5,
+          inactiveStyle: { x: '400%', ease: Back.easeIn.config(1.7) },
+          activeStyle: { x: '0%', ease: Back.easeOut.config(1.7) },
         },
         ['#TShirt']: {
-          inactiveStyle: { y: '-115%' },
-          activeStyle: { y: '0%' },
+          activeDuration: 0.75,
+          inactiveDuration: 0.5,
+          inactiveStyle: { x: '-400%', ease: Back.easeIn.config(1.7) },
+          activeStyle: { x: '0%', ease: Back.easeOut.config(1.7) },
         },
         ['#Bag']: {
-          inactiveStyle: { y: '-115%' },
-          activeStyle: { y: '0%' },
+          activeDuration: 0.5,
+          inactiveDuration: 0.5,
+          inactiveStyle: { y: '600%', ease: Power1.easeIn },
+          activeStyle: { y: '0%', ease: Power1.easeOut },
         },
         ['#Recruiter']: {
-          inactiveStyle: { y: '-115%' },
-          activeStyle: { y: '0%' },
+          activeDuration: 0.5,
+          inactiveDuration: 0.5,
+          inactiveStyle: { y: '-200%', ease: Power1.easeIn },
+          activeStyle: { y: '0%', ease: Power1.easeIn },
         },
         ['#Resume-Stack']: {
-          inactiveStyle: { y: '-115%' },
-          activeStyle: { y: '0%' },
+          activeDuration: 0.5,
+          inactiveDuration: 0.5,
+          inactiveStyle: { y: '-850%', ease: Power1.easeIn },
+          activeStyle: { y: '0%', ease: Power1.easeIn },
         },
         ['#Projecter-Screen']: {
-          inactiveStyle: { y: '-115%' },
-          activeStyle: { y: '0%' },
+          activeDuration: 1,
+          inactiveDuration: 0.75,
+          inactiveStyle: { y: '-120%', ease: Power1.easeIn },
+          activeStyle: { y: '0%', ease: Power1.easeOut },
         },
         ['#Spotlight']: {
-          inactiveStyle: { y: '-115%' },
-          activeStyle: { y: '0%' },
+          activeDuration: 0.5,
+          inactiveDuration: 0.5,
+          inactiveStyle: { y: '-850%', ease: Power1.easeIn },
+          activeStyle: { y: '0%', ease: Power1.easeIn },
         },
         ['#Male-Hacker']: {
-          inactiveStyle: { y: '-115%' },
-          activeStyle: { y: '0%' },
+          activeDuration: 0.75,
+          inactiveDuration: 0.5,
+          inactiveStyle: { x: '-150%', ease: Back.easeIn.config(1.7) },
+          activeStyle: { x: '0%', ease: Back.easeOut.config(1.7) },
         },
         ['#Female-Hacker']: {
-          inactiveStyle: { y: '-115%' },
-          activeStyle: { y: '0%' },
+          activeDuration: 0.75,
+          inactiveDuration: 0.5,
+          inactiveStyle: { x: '150%', ease: Back.easeIn.config(1.7) },
+          activeStyle: { x: '0%', ease: Back.easeOut.config(1.7) },
         },
       }
     }
@@ -75,10 +101,7 @@ export default {
   },
 
   mounted() {
-    setTimeout(() => {
-      console.log('timeout called');
-      this.animate();
-    }, 300);
+    this.animate();
   },
 
   methods: {
@@ -108,33 +131,34 @@ export default {
       */
 
       const onlyAnimateActive = this.allActiveElements.filter(val => !previousAllActiveElements.includes(val));
-      
+      console.log('Active', onlyAnimateActive);
       onlyAnimateActive.forEach((elementId) => {
         var svg = document.querySelector(elementId);
-        console.log("active", svg, this.animations[elementId])
+        // console.log("active", svg, this.animations[elementId])
 
         TweenMax.set(svg, this.animations[elementId].inactiveStyle);
 
         var tl = new TimelineMax({});
 
-        tl.to(svg, 1, this.animations[elementId].activeStyle);
+        tl.to(svg, this.animations[elementId].activeDuration, this.animations[elementId].activeStyle );
       })
 
       /*
        * Now we do the same for the inactive elements
        */
-
+       console.log('this.allInactiveElements', this.allInactiveElements);
+       console.log('previous', previousAllInactiveElements);
       const onlyAnimateInactive = this.allInactiveElements.filter(val => !previousAllInactiveElements.includes(val));
       console.log('onlyAnimateInactive', onlyAnimateInactive);
       onlyAnimateInactive.forEach((elementId) => {
         var svg = document.querySelector(elementId);
-        console.log("inactive", svg, this.animations[elementId])
+        // console.log("inactive", svg, this.animations[elementId])
 
         TweenMax.set(svg, this.animations[elementId].activeStyle);
 
         var tl = new TimelineMax({});
 
-        tl.to(svg, 1, this.animations[elementId].inactiveStyle);
+        tl.to(svg, this.animations[elementId].inactiveDuration, this.animations[elementId].inactiveStyle);
       })
     }
   }
