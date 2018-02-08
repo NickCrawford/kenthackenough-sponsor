@@ -135,10 +135,9 @@ export default {
 
     .input-wrapper {
       grid-area: slider;
-      position: absolute;
-      // bottom: 0em;
+      position: relative;
       text-align: center;
-
+      margin: 0 auto;
       label {
         margin-bottom: -1em;
         display: block;
