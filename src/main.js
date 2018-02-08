@@ -1,10 +1,16 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
+import VueAnalytics from 'vue-analytics'
 import App from './App'
 import Vector from '@/components/Vector'
 import router from './router'
 import money from 'v-money'
+
+Vue.use(VueAnalytics, {
+  id: 'UA-113812683-1',
+  router
+})
 
 // register directive v-money and component <money>
 Vue.use(money, {precision: 4});
