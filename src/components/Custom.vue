@@ -10,7 +10,7 @@
       </div>
       <div>
         <h3>Something else?</h3>
-        <p><a href="#contact">Get in contact</a> with us to set up a custom sponsorship deal. We're very open to new and innovative ideas.</p>
+        <p><a href="mailto:staff@khe.io">Get in contact</a> with us to set up a custom sponsorship deal. We're very open to new and innovative ideas.</p>
       </div>
     </div>
 </template>

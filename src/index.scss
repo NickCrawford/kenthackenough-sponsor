@@ -229,6 +229,13 @@ h3 {
   opacity: 0;
 }
 
+#vector-wrapper.fade-enter-active, #vector-wrapper.fade-leave-active {
+  transition: opacity 1.5s;
+}
+#vector-wrapper.fade-enter, #vector-wrapper.fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
+
 button.fade-enter-active {
   transition: opacity .5s;
   transition-delay: 0.5s;

@@ -15,9 +15,7 @@
       </ul>
     </transition>
 
-    <transition name="fade">
-      <illustrations :amount="amount" :tiers="tiers" v-show="!showScrollIndicator"></illustrations>
-    </transition>
+    <illustrations :amount="amount" :tiers="tiers"></illustrations>
 
     <transition name="fade">
       <div class="input-wrapper" v-show="!showScrollIndicator">
@@ -52,13 +50,14 @@ export default {
   watch: {
     sliderVal() {
       if (!this.hasDragged) {
-        // var win = window;
-        // console.log(win);
         TweenMax.to(window, 1, {scrollTo: { y: '#slider-container', offsetY: 50 } });
-        // TweenMax.to(window, 2, {scrollTo:"#slider-container"});
       }
 
       this.hasDragged = true;
+    },
+
+    showScrollIndicator(showing) {
+      this.updateOpacity();
     }
   },
 
@@ -84,6 +83,7 @@ export default {
   },
 
   mounted () {
+    this.updateOpacity();
     var tooltip = document.querySelector('.tooltip');
     TweenMax.to(tooltip, 1, { x: -20, yoyo: true, repeat: -1, ease: Power1.easeInOut });
   },
@@ -92,6 +92,13 @@ export default {
     handleScroll () {
       this.showScrollIndicator = window.scrollY < 100;
     },
+    updateOpacity () {
+      if (!this.showScrollIndicator) {
+        TweenMax.to('#vector-wrapper', 0.5, { opacity: 1 });
+      } else {
+        TweenMax.to('#vector-wrapper', 0.5, { opacity: 0 });
+      }
+    }
   },
   created () {
     window.addEventListener('scroll', this.handleScroll);

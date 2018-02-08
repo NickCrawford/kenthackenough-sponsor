@@ -16,7 +16,7 @@
       <input id="company-phone" type="phone" name="company-phone" v-model="$root.phone" tabindex="3">
       <label for="company-name">Your Company's Name</label>
       <input id="company-name" type="organization" name="company-name" v-model="$root.companyName" tabindex="4">
-      <label for="company-url">Your Company Website Url</label>
+      <label for="company-url">Your Company Website URL (optional)</label>
       <input id="company-url" type="url" name="company-url" v-model="$root.url" tabindex="5">
     </form>
 

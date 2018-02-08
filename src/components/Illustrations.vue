@@ -101,7 +101,11 @@ export default {
   },
 
   mounted() {
-    this.animate();
+    setTimeout(() => {
+      // console.log('Animate');
+      this.animate();
+    }, 200);
+    
   },
 
   methods: {
@@ -131,10 +135,9 @@ export default {
       */
 
       const onlyAnimateActive = this.allActiveElements.filter(val => !previousAllActiveElements.includes(val));
-      console.log('Active', onlyAnimateActive);
+      // console.log('Active', onlyAnimateActive);
       onlyAnimateActive.forEach((elementId) => {
         var svg = document.querySelector(elementId);
-
         // Special case for resume stack for more fun staggered animation :D
         if (elementId == '#Resume-Stack') {
 
@@ -153,27 +156,26 @@ export default {
       /*
        * Now we do the same for the inactive elements
        */
-       console.log('this.allInactiveElements', this.allInactiveElements);
-       console.log('previous', previousAllInactiveElements);
+      // console.log('this.allInactiveElements', this.allInactiveElements);
+      // console.log('previous', previousAllInactiveElements);
       const onlyAnimateInactive = this.allInactiveElements.filter(val => !previousAllInactiveElements.includes(val));
-      console.log('onlyAnimateInactive', onlyAnimateInactive);
+      // console.log('onlyAnimateInactive', onlyAnimateInactive);
       onlyAnimateInactive.forEach((elementId) => {
         var svg = document.querySelector(elementId);
         // console.log("inactive", svg, this.animations[elementId])
-
+        console.log('element', elementId, svg)
         // Special case for resume stack for more fun animation :D
         if (elementId == '#Resume-Stack') {
 
           TweenMax.to("#Resume-Stack path", this.animations[elementId].inactiveDuration, this.animations[elementId].inactiveStyle);
-
-        } else {
+          return;
+        }
 
           TweenMax.set(svg, this.animations[elementId].activeStyle);
 
           var tl = new TimelineMax({});
 
           tl.to(svg, this.animations[elementId].inactiveDuration, this.animations[elementId].inactiveStyle);
-        }
       })
     }
   }
