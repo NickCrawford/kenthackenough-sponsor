@@ -20,7 +20,7 @@
       <input id="company-url" type="url" name="company-url" v-model="$root.url" tabindex="5">
     </form>
 
-    <router-link :to="{ name: 'ThankYou' }" tag="button" class="big" :disabled="!canFinish">Finish</router-link>
+    <button class="big" :disabled="!canFinish" @click="handleFinish()">Finish</button>
   </main>
 </template>
 
@@ -44,6 +44,19 @@ export default {
   mounted() {
     if ( this.$root.donationAmount == 0 && !this.$root.customInfo.prize.name && !this.$root.customInfo.meal && !this.$root.customInfo.other ) {
       this.$router.push({ name: 'SponsorNow' });
+    }
+  },
+
+  methods: {
+    handleFinish() {
+      //Update FullStory Tracking
+      FS.setUserVars({
+        name: this.$root.name,
+        email: this.$root.email,
+        company: this.$root.company,
+      });
+
+      this.$router.push({ name: 'ThankYou' });
     }
   }
 }
