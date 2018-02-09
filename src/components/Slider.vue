@@ -50,7 +50,8 @@ export default {
   watch: {
     sliderVal() {
       if (!this.hasDragged) {
-        TweenMax.to(window, 1, {scrollTo: { y: '#slider-container', offsetY: 50 } });
+        var header = document.querySelector('#header');
+        TweenMax.to(window, 1, {scrollTo: { y: '#slider-container', offsetY: header.offsetHeight } });
       }
 
       this.hasDragged = true;
@@ -110,138 +111,123 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  $color-primary: #224889;
-  $color-ledge: #79AAFF;
+$color-primary: #224889;
+$color-ledge: #79AAFF;
 
-  #slider-container {
-    display: grid;
-    grid-template-rows: 2em 1fr 6em;
-    grid-template-columns: 100%;
-    grid-template-areas: 
-    "tier-info"
-    "illustration"
-    "slider";
-    justify-items: center;
-    align-items: end;
-    overflow: hidden;
+#slider-container {
+  display: grid;
+  grid-template-rows: 2em 1fr 6em;
+  grid-template-columns: 100%;
+  grid-template-areas: 
+  "tier-info"
+  "illustration"
+  "slider";
+  justify-items: center;
+  align-items: end;
+  overflow: hidden;
 
+  position: relative;
+  width: 100%;
+  height: auto;
+  min-height: 80vh;
+  text-align: center;
+  color: #333;
+  overflow-x: hidden;
+
+  .input-wrapper {
+    grid-area: slider;
     position: relative;
-    width: 100%;
-    height: auto;
-    min-height: 80vh;
     text-align: center;
-    color: #333;
-    overflow-x: hidden;
-
-    .input-wrapper {
-      grid-area: slider;
-      position: relative;
-      text-align: center;
-      margin: 0 auto;
-      label {
-        margin-bottom: -1em;
-        display: block;
-      }
+    margin: 0 auto;
+    label {
+      margin-bottom: -1em;
+      display: block;
     }
+  }
+}
+
+.tier-info {
+  grid-area: tier-info;
+  z-index: 10;
+  position: absolute;
+  top: 0;
+  //top: calc(5vw - 1.5em);
+  left: 0;
+  width: 100%;
+
+  color: #192E50;
+  text-align: center;
+
+  list-style-type: none;
+  padding: 1em 2em;
+
+  display: flex;
+  justify-content: center;
+
+  h3 {
+    display: inline-block;
+    width: auto;
+    margin: 2em;
+    text-align: center;
+    background-color: white;
+    padding: 0.5em 1em;
+    border-radius: 2em;
+    box-shadow: 0 3px 5px rgba(24,24,24,0.2);
+    color: $color-primary;
+  }
+}
+
+#vector-wrapper {
+  position: relative;
+  grid-area: illustration;
+  align-self: end;
+  justify-self: center;
+
+  width: 100%;
+  max-height: calc(90vh - 8em);
+  object-fit: contain;
+
+
+  // height: 100%;
+  // max-height: calc(95vh - 8em); Added as inline styles
+  margin: 0 auto;
+}
+
+
+@media screen and (max-width: 1024px) {
+  #slider-container {
+    min-height: 80vh;
+    margin-top: 2em;
+
   }
 
   .tier-info {
-    grid-area: tier-info;
-    z-index: 10;
-    position: absolute;
-    top: 0;
-    //top: calc(5vw - 1.5em);
-    left: 0;
-    width: 100%;
-
-    color: #192E50;
-    text-align: center;
-
-    list-style-type: none;
-    padding: 1em 2em;
-
-    display: flex;
-    justify-content: center;
-
-    h3 {
-      display: inline-block;
-      width: auto;
-      margin: 2em;
-      text-align: center;
-
-      background-color: white;
-      padding: 0.5em 1em;
-      border-radius: 2em;
-      box-shadow: 0 3px 5px rgba(24,24,24,0.2);
-      color: $color-primary;
-    }
-  }
-
-  #vector-wrapper {
-    grid-area: illustration;
-    align-self: end;
-    justify-self: stretch;
-  }
-
-  #illustration-container {
-
-    width: auto;
-    height: 80%;
-
-    margin-left: 50%;
-    transform: translateX(-50%);
-
-    overflow: visible;
-
-  }
-
-  @media screen and (max-width: 1024px) {
-    #slider-container {
-      min-height: 80vh;
-      margin-top: 2em;
-      
-    }
-
-    .tier-info {
-      display: block;
-      position: relative;
-      top: 0;
-      padding: 0;
-
-      h3 {
-        margin: 0.5em;
-      }
-    }
-
-    #vector-wrapper {
-      width: 140%;
-      max-height: 100%;
-      justify-self: center;
-    }
-
-    #illustration-container {
-      width: 100%;
-      height: auto;
-      overflow: hidden;
-    }
-
-  }
-
-  .tooltip {
     display: block;
     position: absolute;
-    top: 28%;
-    right: 105%;
-    width: 250px;
-    padding: 0.5em 1em;
-    background-color: #39475E;
-    border-radius: 8px;
-    border: 2px solid #192E50;
-    color: white;
-    z-index: 10;
+    top: 0;
+    padding: 0;
 
-    &:before {
-      content: '';
+    h3 {
+      margin: 0.5em;
+    }
+  }
+}
+
+.tooltip {
+  display: block;
+  position: absolute;
+  top: 28%;
+  right: 105%;
+  width: 250px;
+  padding: 0.5em 1em;
+  background-color: #39475E;
+  border-radius: 8px;
+  border: 2px solid #192E50;
+  color: white;
+  z-index: 10;
+
+  &:before {
+    content: '';
       position: absolute;
       right: calc(-0.5em - 2px);
       top: calc(50% - 0.5em - 2px);
@@ -255,9 +241,9 @@ export default {
     }
 
     @media screen and (max-width: 1024px) {
-      display: none;
-    }
+    display: none;
   }
+}
 
 
 // Styling input ranges is painful
@@ -284,18 +270,18 @@ $track-border-color: $color-primary !default;
 $track-radius: 25px !default;
 
 @mixin track {
-  cursor: pointer;
-  height: $track-height;
-  transition: all .2s ease;
-  width: $track-width;
+cursor: pointer;
+height: $track-height;
+transition: all .2s ease;
+width: $track-width;
 }
 
 @mixin thumb {
-  background: $thumb-color;
-  border-radius: $thumb-radius;
-  cursor: pointer;
-  height: $thumb-height;
-  width: $thumb-width;
+background: $thumb-color;
+border-radius: $thumb-radius;
+cursor: pointer;
+height: $thumb-height;
+width: $thumb-width;
 }
 
 [type='range'] {

@@ -1,5 +1,5 @@
 <template>
-  <header :class="{ stuck: hasScrolled }">
+  <header :class="{ stuck: hasScrolled }" id="header">
     <router-link :to="{ name: 'Home' }" tag="h1">Kent Hack Enough</router-link>
     <transition name="fade">
       <h2 v-if="!hasScrolled">Sponsorship Information</h2>
