@@ -1,7 +1,7 @@
 <template>
   <main id="thanks">
     <h1>Thank you!</h1>
-    <h2>We'll be in touch soon with more details.</h2>
+    <h2>We'll be in touch soon with more details and your invoice.</h2>
     <p>Once we've received your payment, we will include your logo on our website. Feel free to shoot us an email in the meantime if you have any questions or concerns:  <b>staff@khe.io</b></p>
     <br><br>
     <span>
@@ -29,10 +29,10 @@
               height="1">
           </form>
         </div>
-        <div class="paycard" tabindex="7">
+        <!-- <div class="paycard" tabindex="7">
           <h3>View your <h2>invoice</h2></h3>
           <img src="@/assets/invoice.png" />
-        </div>
+        </div> -->
       </div>
     </span>
   </main>
