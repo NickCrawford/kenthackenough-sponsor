@@ -2,6 +2,9 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import VueAnalytics from 'vue-analytics'
+import axios from 'axios';
+import VueAxios from 'vue-axios';
+
 import App from './App'
 import Vector from '@/components/Vector'
 import router from './router'
@@ -14,6 +17,10 @@ Vue.use(VueAnalytics, {
 
 // register directive v-money and component <money>
 Vue.use(money, {precision: 4});
+
+Vue.use(VueAxios, axios);
+
+// Vue.axios.defaults.baseURL = 'https://api.khe.io/v1.0';
 
 Vue.config.productionTip = false
 

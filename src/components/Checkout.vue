@@ -25,6 +25,10 @@
 </template>
 
 <script>
+import axios from 'axios';
+
+const API_BASE = 'https://api.khe.io/v1.0';
+
 export default {
 
   name: 'Checkout',
@@ -53,10 +57,40 @@ export default {
       FS.setUserVars({
         name: this.$root.name,
         email: this.$root.email,
-        company: this.$root.company,
+        company: this.$root.companyName,
       });
 
-      this.$router.push({ name: 'ThankYou' });
+      var ticket = {
+        subject: `${this.$root.companyName} is sponsoring Kent Hack Enough!`,
+        name: this.$root.name,
+        replyTo: this.$root.email,
+        body: `
+          Hi Kent Hack Enough team,
+
+          My name is ${this.$root.name} and I work at ${this.$root.companyName}. You can reach me at my email (${this.$root.email}) and phone (${this.$root.phone}). Our company's website is ${this.$root.url || 'not defined'}. *** *** ***
+          I'm interested in sponsoring Kent Hack Enough with the following:
+          - Donation: ${this.$root.donationAmount || 'none'},  *  
+          - Custom Meal: ${this.$root.customInfo.meal || 'none'},   *   
+          - Custom Prize: ${this.$root.customInfo.prize.name || 'n/a'}, $${this.$root.customInfo.prize.value || 'n/a'}, ${this.$root.customInfo.prize.item || 'n/a'}, ${this.$root.customInfo.prize.criteria || 'n/a'},   *   
+          - Other Info: ${this.$root.customInfo.other || 'n/a'}
+
+          `
+      }
+
+      return axios.post(`${API_BASE}/tickets`, ticket)
+      .then((response) => {
+        console.log('Ticket sent', response);
+        this.$router.push({ name: 'ThankYou' });
+      })
+      .catch((error) => {
+        alert('We weren\'t able to complete your form submission. Make sure all the form fields are filled out correctly and that you\'re connected to the internet. Then try again in a bit.');
+        // Handle error...
+        console.log(error);
+        
+        console.log('API responded with:', error.response.data);
+        throw error;
+      });
+      
     }
   }
 }

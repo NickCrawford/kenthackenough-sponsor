@@ -10,10 +10,12 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "axios": "^0.17.1",
     "gsap": "^1.20.3",
     "v-money": "^0.8.1",
     "vue": "^2.5.2",
     "vue-analytics": "^5.8.0",
+    "vue-axios": "^2.0.2",
     "vue-focus": "^2.1.0",
     "vue-router": "^3.0.1"
   },
