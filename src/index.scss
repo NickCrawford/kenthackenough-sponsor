@@ -235,6 +235,29 @@ h3 {
   opacity: 0;
 }
 
+.pop-enter-active {
+  transform: scale(1);
+  transition: all 0.4s cubic-bezier(.48,1.23,.59,1.22);
+}
+.pop-enter {
+  opacity: 0.8;
+  transform: scale(0.85);
+}
+
+.fade-leave-active .fade-leave-to {
+  transition-delay: 0s;
+  opacity: 0;
+}
+
+// .pop-enter, {
+//   transform: scale(0);
+// }
+
+// .pop-enter-active {
+//   transition: all 1s;
+//   transform: scale(1);
+// }
+
 #vector-wrapper.fade-enter-active, #vector-wrapper.fade-leave-active {
   transition: opacity 1.5s;
 }

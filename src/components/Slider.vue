@@ -8,11 +8,11 @@
     </transition>
 
     <transition name="fade">
-      <ul class="tier-info" v-if="!showScrollIndicator">
-        <li v-for="perk in activePerks">
-          <h3>{{ perk }}</h3>
-        </li>
-      </ul>
+      <transition-group name="pop" tag="ul" class="tier-info" v-if="!showScrollIndicator">
+          <li v-for="perk in activePerks" v-bind:key="perk">
+            <h3>{{ perk }}</h3>
+          </li>
+      </transition-group>
     </transition>
 
     <illustrations :amount="amount" :tiers="tiers"></illustrations>
@@ -101,7 +101,7 @@ export default {
     },
     scrollToIllustration () {
       var header = document.querySelector('#header');
-      TweenMax.to(window, 0.3, {scrollTo: { y: '#slider-container', offsetY: header.offsetHeight } });
+      TweenMax.to(window, 0.4, {scrollTo: { y: '#slider-container', offsetY: header.offsetHeight } });
     }
   },
   created () {
