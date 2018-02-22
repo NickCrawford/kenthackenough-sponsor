@@ -1,9 +1,9 @@
 <template>
   <div id="slider-container">
     <transition name="fade">
-      <div class="scroll-down-indicator" v-if="showScrollIndicator">
+      <div class="scroll-down-indicator" v-if="showScrollIndicator" @click="scrollToIllustration()">
         <p>Scroll down for more</p>
-        <span></span>
+        <span ></span>
       </div>
     </transition>
 
@@ -50,8 +50,7 @@ export default {
   watch: {
     sliderVal() {
       if (!this.hasDragged) {
-        var header = document.querySelector('#header');
-        TweenMax.to(window, 1, {scrollTo: { y: '#slider-container', offsetY: header.offsetHeight } });
+        this.scrollToIllustration();
       }
 
       this.hasDragged = true;
@@ -99,6 +98,10 @@ export default {
       } else {
         TweenMax.to('#vector-wrapper', 0.5, { opacity: 0 });
       }
+    },
+    scrollToIllustration () {
+      var header = document.querySelector('#header');
+      TweenMax.to(window, 0.3, {scrollTo: { y: '#slider-container', offsetY: header.offsetHeight } });
     }
   },
   created () {

@@ -199,6 +199,9 @@ h3 {
   transform: translateX(-50%);
   margin: 2em auto;
   
+  z-index: 10;
+  cursor: pointer;
+
   p {
     font-size: 18px;
     margin-bottom: 8px;
