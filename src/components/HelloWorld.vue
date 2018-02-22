@@ -13,7 +13,8 @@
     <router-link :to="{ name: 'SponsorNow'}" tag="button" class="big">Sponsor Now</router-link>
   </main>
   <br><br><br><br>
-  <sponsor-modal></sponsor-modal>
+  <!-- <sponsor-modal></sponsor-modal> -->
+  <footer-info></footer-info>
 </div>
 </template>
 
@@ -22,14 +23,14 @@ import Greeting from '@/components/Greeting';
 import Slider from '@/components/Slider';
 import Custom from '@/components/Custom';
 import SponsorModal from '@/components/SponsorModal';
+import FooterInfo from '@/components/FooterInfo';
 
 export default {
   name: 'HelloWorld',
-  components: { Greeting, Slider, Custom, SponsorModal},
+  components: { Greeting, Slider, Custom, SponsorModal, FooterInfo},
   props: ['name', 'company', 'email'],
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
     }
   },
   mounted() {

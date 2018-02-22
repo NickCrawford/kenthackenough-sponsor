@@ -1,6 +1,7 @@
 <template>
   <header :class="{ stuck: hasScrolled }" id="header">
-    <router-link :to="{ name: 'Home' }" tag="h1">Kent Hack Enough</router-link>
+    <router-link :to="{ name: 'Home' }" tag="h1" v-if="$route.name != 'Home'">Kent Hack Enough</router-link>
+    <h1 v-else><a href="https://khe.io">Kent Hack Enough</a></h1>
     <transition name="fade">
       <h2 v-if="!hasScrolled">Sponsorship Information</h2>
     </transition>
@@ -36,3 +37,10 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  h1 a {
+    text-decoration: none;
+    color: #224889;
+  }
+</style>
