@@ -9,9 +9,9 @@
 
     <transition name="fade">
       <transition-group name="pop" tag="ul" class="tier-info" v-if="!showScrollIndicator">
-          <li v-for="perk in activePerks" v-bind:key="perk">
-            <h3>{{ perk }}</h3>
-          </li>
+        <li v-for="perk in activePerks" v-bind:key="perk">
+          <h3>{{ perk }}</h3>
+        </li>
       </transition-group>
     </transition>
 
@@ -32,7 +32,10 @@
 import Illustrations from '@/components/Illustrations';
 import { tiers } from '@/tiers';
 import {TweenMax, Power1, TimelineLite} from "gsap";
-import ScrollToPlugin from "gsap/ScrollToPlugin";
+import ScrollToPlugin from "@/assets/js/gsap-plugins/ScrollToPlugin";
+import DrawSVGPlugin from '@/assets/js/gsap-plugins/DrawSVGPlugin';
+
+var happyFace, sadFace, idleFace;
 
 export default {
 
@@ -43,14 +46,27 @@ export default {
       hasDragged: false,
       showScrollIndicator: true,
       sliderVal: 0,
+      sliderValLargestSoFar: 0,
       tiers,
     };
   },
 
   watch: {
-    sliderVal() {
+    sliderVal(val) {
       if (!this.hasDragged) {
         this.scrollToIllustration();
+      }
+
+      // Set the highest dragged amount
+      if (this.sliderVal > this.sliderValLargestSoFar) {
+        this.sliderValLargestSoFar = this.sliderVal;
+      }
+
+      // Show the sad mentor face if the user drags from the max value to the min value.
+      if (this.sliderValLargestSoFar >= 7 && val == 0) {
+        this.sadMentor();
+      } else {
+        this.happyMentor();
       }
 
       this.hasDragged = true;
@@ -58,6 +74,7 @@ export default {
 
     showScrollIndicator(showing) {
       this.updateOpacity();
+      this.animateMentor();
     }
   },
 
@@ -86,6 +103,16 @@ export default {
     this.updateOpacity();
     var tooltip = document.querySelector('.tooltip');
     TweenMax.to(tooltip, 1, { x: -20, yoyo: true, repeat: -1, ease: Power1.easeInOut });
+
+    happyFace = document.querySelector('#HappyFace');
+    sadFace = document.querySelector('#SadFace');
+    idleFace = document.querySelector('#IdleFace');
+
+    happyFace.style.opacity = 0;
+    sadFace.style.opacity = 0;
+    idleFace.style.opacity = 1;
+
+    this.handleScroll();
   },
 
   methods: {
@@ -98,6 +125,35 @@ export default {
       } else {
         TweenMax.to('#vector-wrapper', 0.5, { opacity: 0 });
       }
+    },
+    animateMentor () {
+      TweenMax.to("#SupriseLines path", 0, {drawSVG: '0%'});
+      if (!this.showScrollIndicator) {
+        setTimeout(() => {
+          TweenMax.to("#SupriseLines path", 0.15, {delay: 0.1, drawSVG: '0% 100%'});
+          TweenMax.to("#SupriseLines path", 0.15, {delay: 0.25, drawSVG: '100% 100%'});
+
+          this.happyMentor();
+        }, 750);
+
+        TweenMax.to('#Mentor', 0.25, { y: -100, yoyo: true, repeat: 1, delay: 1.15,  ease: Power1.linear });
+      } else {
+        happyFace.style.opacity = 0;
+        sadFace.style.opacity = 0;
+        idleFace.style.opacity = 1;
+      }
+    },
+    sadMentor () {
+      happyFace.style.opacity = 0;
+      idleFace.style.opacity = 0;
+      sadFace.style.opacity = 1;
+
+      TweenMax.fromTo('#Tear', 0.75, { y: -20, scale: 0.8, delay: 0.25}, { y: 0, scale: 1});
+    },
+    happyMentor () {
+      happyFace.style.opacity = 1;
+      idleFace.style.opacity = 0;
+      sadFace.style.opacity = 0;
     },
     scrollToIllustration () {
       var header = document.querySelector('#header');
@@ -198,22 +254,22 @@ $color-ledge: #79AAFF;
 
 
 @media screen and (max-width: 1024px) {
-  #slider-container {
-    min-height: 80vh;
-    margin-top: 2em;
+#slider-container {
+  min-height: 80vh;
+  margin-top: 2em;
 
+}
+
+.tier-info {
+  display: block;
+  position: absolute;
+  top: 0;
+  padding: 0;
+
+  h3 {
+    margin: 0.5em;
   }
-
-  .tier-info {
-    display: block;
-    position: absolute;
-    top: 0;
-    padding: 0;
-
-    h3 {
-      margin: 0.5em;
-    }
-  }
+}
 }
 
 .tooltip {

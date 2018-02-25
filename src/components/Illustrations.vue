@@ -140,8 +140,10 @@ export default {
         var svg = document.querySelector(elementId);
         // Special case for resume stack for more fun staggered animation :D
         if (elementId == '#Resume-Stack') {
+          var tl = new TimelineMax({});
 
-          TweenMax.staggerTo("#Resume-Stack path", this.animations[elementId].activeDuration, this.animations[elementId].activeStyle, 0.1);
+          tl.staggerTo("#Resume-Stack path", this.animations[elementId].activeDuration, this.animations[elementId].activeStyle, 0.1);
+          // TweenMax.staggerTo("#Resume-Stack path", this.animations[elementId].activeDuration, this.animations[elementId].activeStyle, 0.1);
 
         } else {
 
