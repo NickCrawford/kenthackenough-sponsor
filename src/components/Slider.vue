@@ -160,9 +160,6 @@ export default {
       var header = document.querySelector('#header');
       TweenMax.to(window, 0.4, {scrollTo: { y: '#slider-container', offsetY: header.offsetHeight, autoKill:false } });
     },
-    // scrollDown () {
-    //   TweenMax.to(window, 0.5, {scrollTo: { y: '#slider-container', autoKill:false} });
-    // }
   },
   created () {
     window.addEventListener('scroll', this.handleScroll);
@@ -227,8 +224,11 @@ $color-ledge: #79AAFF;
   display: flex;
   justify-content: center;
 
+  // li {
+  //   display: none;
+  // }
+
   h3 {
-    display: inline-block;
     width: auto;
     margin: 2em;
     text-align: center;
