@@ -11,6 +11,9 @@
       <transition-group name="pop" tag="ul" class="tier-info" v-if="!showScrollIndicator">
         <li v-for="perk in activePerks" v-bind:key="perk">
           <h3>{{ perk }}</h3>
+          <div class="tooltip vertical">
+            <p>{{ tierInfo[perk] }}</p>
+          </div>
         </li>
       </transition-group>
     </transition>
@@ -30,7 +33,7 @@
 
 <script>
 import Illustrations from '@/components/Illustrations';
-import { tiers } from '@/tiers';
+import { tiers, tierInfo } from '@/tiers';
 
 import {TweenMax, Power1, TimelineLite} from "gsap";
 import ScrollToPlugin from "gsap/ScrollToPlugin";
@@ -49,6 +52,7 @@ export default {
       sliderVal: 0,
       sliderValLargestSoFar: 0,
       tiers,
+      tierInfo
     };
   },
 
@@ -224,9 +228,18 @@ $color-ledge: #79AAFF;
   display: flex;
   justify-content: center;
 
-  // li {
-  //   display: none;
-  // }
+  li {
+    position: relative;
+    cursor: pointer;
+
+    .tooltip {
+      display: none;
+    }
+
+    &:hover .tooltip {
+      display: block;
+    }
+  }
 
   h3 {
     width: auto;
@@ -305,6 +318,36 @@ $color-ledge: #79AAFF;
 
     @media screen and (max-width: 1024px) {
     display: none;
+  }
+}
+
+.tooltip.vertical {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: 120%;
+  min-width: 200px;
+  max-width: 500px;
+
+  p {
+    max-height: 100vh;
+    overflow-y: auto;
+  }
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: calc(-0.5em - 2px);
+    right: calc(50% - 0.5em - 2px);
+    background-color: #39475E;
+    border-top: 2px solid #192E50;
+    border-right: 2px solid #192E50;
+    width: 1em;
+    height: 1em;
+    transform: rotate( 45deg );
+    z-index: 9;
   }
 }
 

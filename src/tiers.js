@@ -40,3 +40,20 @@ export const tiers = [
     activeElements: ['#Spotlight', '#Male-Hacker', '#Female-Hacker'],
   },
 ];
+
+export const tierInfo = {
+  'Send Mentors': 'Even if you aren\'t able to contribute financially to our event, we would still love to have you!',
+  'Logo on Website': '2',
+  'Reserved Table': '3',
+  'Send Swag': '4',
+  'Logo on T-Shirt': '5',
+  'Judge Final Hacks': '6',
+  'Your Swag Distributed in Our Swag Bags': '7',
+  'Send Recruiters': '8',
+  'Resume Book After Event': '9',
+  'Table Placed in High Traffic Area': '10',
+  'Demo at Opening Ceremony': '11',
+  'Resume Book Before Event': '12',
+  'Reserved Area in Hacker Space': '13',
+  'Be Our Keynote Speaker': '14',
+}
