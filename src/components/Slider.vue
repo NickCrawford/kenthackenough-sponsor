@@ -1,7 +1,7 @@
 <template>
   <div id="slider-container">
     <transition name="fade">
-      <div class="scroll-down-indicator" v-if="showScrollIndicator" @click="scrollToIllustration()">
+      <div class="scroll-down-indicator" v-if="showScrollIndicator" @click="scrollToIllustration">
         <p>Scroll down for more</p>
         <span ></span>
       </div>
@@ -158,8 +158,11 @@ export default {
     },
     scrollToIllustration () {
       var header = document.querySelector('#header');
-      TweenMax.to(window, 0.4, {scrollTo: { y: '#slider-container', offsetY: header.offsetHeight } });
-    }
+      TweenMax.to(window, 0.4, {scrollTo: { y: '#slider-container', offsetY: header.offsetHeight, autoKill:false } });
+    },
+    // scrollDown () {
+    //   TweenMax.to(window, 0.5, {scrollTo: { y: '#slider-container', autoKill:false} });
+    // }
   },
   created () {
     window.addEventListener('scroll', this.handleScroll);
