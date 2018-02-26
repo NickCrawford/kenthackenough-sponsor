@@ -31,8 +31,9 @@
 <script>
 import Illustrations from '@/components/Illustrations';
 import { tiers } from '@/tiers';
+
 import {TweenMax, Power1, TimelineLite} from "gsap";
-import ScrollToPlugin from "@/assets/js/gsap-plugins/ScrollToPlugin";
+import ScrollToPlugin from "gsap/ScrollToPlugin";
 import DrawSVGPlugin from '@/assets/js/gsap-plugins/DrawSVGPlugin';
 
 var happyFace, sadFace, idleFace;
