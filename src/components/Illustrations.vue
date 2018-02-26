@@ -6,6 +6,8 @@
 import {TweenMax, Power0, Power1, Back, TimelineLite} from "gsap";
 import Vector from '@/components/Vector';
 
+let resumeTimeline = new TimelineMax({});
+
 export default {
 
   name: 'Illustrations',
@@ -62,7 +64,7 @@ export default {
         },
         ['#Resume-Stack']: {
           activeDuration: 0.5,
-          inactiveDuration: 0.5,
+          inactiveDuration: 0.3,
           inactiveStyle: { y: '-850px', ease: Power1.easeIn },
           activeStyle: { y: '0px', ease: Power1.easeIn },
         },
@@ -74,7 +76,7 @@ export default {
         },
         ['#Spotlight']: {
           activeDuration: 0.5,
-          inactiveDuration: 0.5,
+          inactiveDuration: 0.3,
           inactiveStyle: { y: '-850%', ease: Power1.easeIn },
           activeStyle: { y: '0%', ease: Power1.easeIn },
         },
@@ -140,9 +142,9 @@ export default {
         var svg = document.querySelector(elementId);
         // Special case for resume stack for more fun staggered animation :D
         if (elementId == '#Resume-Stack') {
-          var tl = new TimelineMax({});
-
-          tl.staggerTo("#Resume-Stack path", this.animations[elementId].activeDuration, this.animations[elementId].activeStyle, 0.1);
+          console.log('Starting Resume-Stack');
+          resumeTimeline.restart();
+          resumeTimeline.staggerTo("#Resume-Stack path", this.animations[elementId].activeDuration, this.animations[elementId].activeStyle, 0.1);
           // TweenMax.staggerTo("#Resume-Stack path", this.animations[elementId].activeDuration, this.animations[elementId].activeStyle, 0.1);
 
         } else {
@@ -168,7 +170,8 @@ export default {
         console.log('element', elementId, svg)
         // Special case for resume stack for more fun animation :D
         if (elementId == '#Resume-Stack') {
-
+          console.log('Killing Resume-Stack');
+          resumeTimeline.kill();
           TweenMax.to("#Resume-Stack path", this.animations[elementId].inactiveDuration, this.animations[elementId].inactiveStyle);
           return;
         }
