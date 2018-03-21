@@ -6,7 +6,7 @@
       <h2 v-if="!hasScrolled">Sponsorship Information</h2>
     </transition>
     <transition name="fade">
-      <router-link :to="{ name: 'SponsorNow' }" tag="button" v-if="hasScrolled && !($route.name == 'SponsorNow' || $route.name == 'Checkout'|| $route.name == 'ThankYou')">Sponsor Now</router-link>
+      <router-link :to="{ name: 'SponsorNow' }" tag="button" v-if="hasScrolled && !($route.name == 'SponsorNow' || $route.name == 'Checkout'|| $route.name == 'ThankYou')" :class=" { pulse: pulseButton }">Sponsor Now</router-link>
     </transition>
   </header>
 </template>
@@ -19,11 +19,18 @@ export default {
   data() {
     return {
       hasScrolled: false,
+      pulseButton: false,
     }
   },
   methods: {
     handleScroll () {
       this.hasScrolled = window.scrollY > 0;
+
+      if (this.hasScrolled) {
+        setTimeout(() => {
+          this.pulseButton = true;
+        }, 6000);
+      }
     }
   },
   created () {
