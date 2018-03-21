@@ -2,7 +2,7 @@
   <div id="slider-container">
     <transition name="fade">
       <div class="scroll-down-indicator" v-if="showScrollIndicator" @click="scrollToIllustration">
-        <p>Scroll down for more</p>
+        <button class="big blue">Let's Begin</button>
         <span ></span>
       </div>
     </transition>
