@@ -60,13 +60,6 @@ export default {
         company: this.$root.companyName,
       });
 
-      var credentials, drive_service, folder_id, http, template_id;
-      credentials = get_credentials();
-      http = credentials.authorize(new httplib2.Http());
-      drive_service = discovery.build("drive", "v3", {"http": http});
-      folder_id = get_folder(drive_service, "DriveInvoicing")["id"];
-      template_id = get_content(drive_service, "Template", folder_id)["id"];
-
       var ticket = {
         subject: `${this.$root.companyName} is sponsoring Kent Hack Enough!`,
         name: this.$root.name,
